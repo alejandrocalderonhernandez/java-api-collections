@@ -18,7 +18,6 @@ class PaymentsIterableTest extends AbstractCollectionTest {
 
         int count = 0;
         for (Payment payment : paymentsIterable) {
-            System.out.println(payment);
             count++;
         }
 
