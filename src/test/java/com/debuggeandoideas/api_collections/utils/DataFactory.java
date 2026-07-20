@@ -18,7 +18,6 @@ public class DataFactory {
                 String.format("PAY-%08d", paymentSeq++),
                 faker.number().randomDouble(2, 10, 5000),
                 PaymentMethod.values()[faker.random().nextInt(PaymentMethod.values().length)],
-                PaymentStatus.values()[faker.random().nextInt(PaymentStatus.values().length)],
                 faker.timeAndDate().past(365, TimeUnit.DAYS)
         );
     }
@@ -36,7 +35,6 @@ public class DataFactory {
                 String.format("MPAY-%08d", mutablePaymentSeq++),
                 faker.number().randomDouble(2, 10, 5000),
                 PaymentMethod.values()[faker.random().nextInt(PaymentMethod.values().length)],
-                PaymentStatus.values()[faker.random().nextInt(PaymentStatus.values().length)],
                 faker.timeAndDate().past(365, TimeUnit.DAYS)
         );
     }
@@ -52,9 +50,8 @@ public class DataFactory {
     public Shipment oneShipment() {
         return new Shipment(
                 String.format("TRK-%09d", shipmentSeq++),
+                faker.address().fullAddress(),
                 faker.number().randomDouble(2, 1, 50),
-                ShipmentStatus.values()[faker.random().nextInt(ShipmentStatus.values().length)],
-                ShipmentPriority.values()[faker.random().nextInt(ShipmentPriority.values().length)],
                 faker.timeAndDate().past(365, TimeUnit.DAYS)
         );
     }

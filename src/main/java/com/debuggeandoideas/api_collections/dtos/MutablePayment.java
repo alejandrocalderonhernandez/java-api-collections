@@ -8,15 +8,13 @@ public class MutablePayment {
     private final String reference;
     private double amount;
     private PaymentMethod method;
-    private PaymentStatus status;
     private final Instant createdAt;
 
     public MutablePayment(String reference, double amount, PaymentMethod method,
-                          PaymentStatus status, Instant createdAt) {
+                           Instant createdAt) {
         this.reference = reference;
         this.amount = amount;
         this.method = method;
-        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -40,14 +38,6 @@ public class MutablePayment {
         this.method = method;
     }
 
-    public PaymentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PaymentStatus status) {
-        this.status = status;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -67,6 +57,6 @@ public class MutablePayment {
     @Override
     public String toString() {
         return "MutablePayment[reference=" + reference + ", amount=" + amount
-                + ", status=" + status + "]";
+                + "]";
     }
 }
