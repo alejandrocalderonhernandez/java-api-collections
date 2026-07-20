@@ -4,9 +4,8 @@ import java.time.Instant;
 
 public record Shipment(
         String trackingNumber,
+        String address,
         double weight,
-        ShipmentStatus status,
-        ShipmentPriority priority,
         Instant createdAt
 ) {
 }

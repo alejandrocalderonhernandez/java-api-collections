@@ -6,7 +6,6 @@ public record Payment(
         String reference,
         double amount,
         PaymentMethod method,
-        PaymentStatus status,
         Instant createdAt
 ) {
 }
