@@ -53,15 +53,20 @@ class PaymentSetOperationsTest {
 
     @Test
     void matchedAndMissingTogetherRecreateSystemA() {
-        Set<String> systemA = new HashSet<>(Set.of("PAY-001", "PAY-002", "PAY-003"));
-        Set<String> systemB = new HashSet<>(Set.of("PAY-002", "PAY-003", "PAY-004"));
+        Set<String> systemAValues = Set.of("PAY-001", "PAY-002", "PAY-003");
+        Set<String> systemBValues = Set.of("PAY-002", "PAY-003", "PAY-004");
 
-        Set<String> matched = operations.matchedReferences(systemA, systemB);
-        Set<String> missing = operations.missingFromSystemB(systemA, systemB);
+        // Cada llamada recibe su PROPIA copia de los datos — así, sin
+        // importar si el método muta lo que le pasan o no, una llamada
+        // nunca puede contaminar a la otra.
+        Set<String> matched = operations.matchedReferences(
+                new HashSet<>(systemAValues), new HashSet<>(systemBValues));
+        Set<String> missing = operations.missingFromSystemB(
+                new HashSet<>(systemAValues), new HashSet<>(systemBValues));
 
         Set<String> reconstructed = new HashSet<>(matched);
         reconstructed.addAll(missing);
 
-        assertEquals(Set.of("PAY-001", "PAY-002", "PAY-003"), reconstructed);
+        assertEquals(systemAValues, reconstructed);
     }
 }
