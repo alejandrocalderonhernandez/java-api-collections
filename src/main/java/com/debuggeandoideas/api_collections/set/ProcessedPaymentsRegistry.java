@@ -16,19 +16,14 @@ public final class ProcessedPaymentsRegistry {
     }
 
     public boolean markAsProcessed(Payment payment) {
-        return this.processedReferences.add(payment.reference());
+        throw new UnsupportedOperationException();
     }
 
     public boolean isDuplicate(Payment payment) {
-        return this.processedReferences.contains(payment.reference());
+        throw new UnsupportedOperationException();
     }
 
     public Set<PaymentMethod> distinctPaymentMethods(List<Payment> batch) {
-        Set<PaymentMethod> paymentMethods = new HashSet<>();
-
-        for (Payment payment : batch) {
-           paymentMethods.add(payment.method());
-        }
-        return paymentMethods;
+        throw new UnsupportedOperationException();
     }
 }
