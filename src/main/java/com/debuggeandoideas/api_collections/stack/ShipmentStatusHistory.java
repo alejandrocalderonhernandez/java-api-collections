@@ -10,14 +10,14 @@ public final class ShipmentStatusHistory {
     private final Deque<ShipmentStatus> history = new ArrayDeque<>();
 
     public void recordChange(ShipmentStatus newStatus) {
-        this.history.push(newStatus);
+        throw new UnsupportedOperationException();
     }
 
     public ShipmentStatus undoLastChange() {
-        return this.history.pop();
+        throw new UnsupportedOperationException();
     }
 
     public ShipmentStatus currentStatus() {
-        return this.history.peek();
+        throw new UnsupportedOperationException();
     }
 }

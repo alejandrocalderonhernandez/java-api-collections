@@ -8,19 +8,17 @@ import java.util.Queue;
 
 public class ShipmentDispatchQueue {
 
-    private final Queue<Shipment> pending = new PriorityQueue<>(
-            Comparator.comparingDouble(Shipment::weight).reversed()
-    );
+    private final Queue<Shipment> pending = new PriorityQueue<>();
 
     public void enqueue(Shipment shipment) {
-        this.pending.offer(shipment);
+        throw new UnsupportedOperationException();
     }
 
     public Shipment dispatchNext() {
-        return this.pending.poll();
+        throw new UnsupportedOperationException();
     }
 
     public boolean hasPending() {
-        return !this.pending.isEmpty();
+        throw new UnsupportedOperationException();
     }
 }

@@ -10,18 +10,18 @@ public final class PaymentProcessingQueue {
     private final Queue<Payment> pending = new LinkedList<>();
 
     public void enqueue(Payment payment) {
-        this.pending.offer(payment);
+        throw new UnsupportedOperationException();
     }
 
     public Payment processNext() {
-        return this.pending.poll();
+        throw new UnsupportedOperationException();
     }
 
     public Payment nextInLine() {
-        return this.pending.poll();
+        throw new UnsupportedOperationException();
     }
 
     public boolean hasPending() {
-        return !this.pending.isEmpty();
+        throw new UnsupportedOperationException();
     }
 }

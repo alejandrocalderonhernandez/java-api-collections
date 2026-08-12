@@ -14,19 +14,9 @@ import java.util.Deque;
 // ---------------------------------------------------------------
 public class PalindromeDqueue {
 
+
     public boolean isPalindrome(String s) {
-        String normalized = normalize(s);
-        Deque<Character> deque = toDeque(normalized);
-
-        while (deque.size() > 1) {
-            char left = deque.pollFirst();
-            char right = deque.pollLast();
-
-            if (left != right) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException();
     }
 
     private static String normalize(String s) {
