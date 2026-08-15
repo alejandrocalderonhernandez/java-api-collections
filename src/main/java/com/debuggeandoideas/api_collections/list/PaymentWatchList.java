@@ -1,13 +1,15 @@
+
+
 package com.debuggeandoideas.api_collections.list;
 
 import com.debuggeandoideas.api_collections.dtos.Payment;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class PaymentWatchList {
 
-    private final List<Payment> watched = new CopyOnWriteArrayList<>();
+    private final List<Payment> watched = new ArrayList<>();
 
     public void watch(Payment payment) {
         watched.add(payment);

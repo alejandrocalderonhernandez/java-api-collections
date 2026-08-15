@@ -11,21 +11,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class PaymentAmountCache {
 
     private static final Map<String, Double> MEM_CACHE = new ConcurrentHashMap<>();
-
     private static final AtomicInteger DB_HITS = new AtomicInteger();
 
     public void post(Payment payment) {
-        this.savePayment(payment);
-        MEM_CACHE.put(payment.reference(), payment.amount());
+        throw new UnsupportedOperationException();
+
+        // If not exist Go to DB
     }
 
     public Double get(String reference) {
-        return MEM_CACHE.computeIfAbsent(reference, ref
-                -> this.getByReference(ref).amount());
+        throw new UnsupportedOperationException();
+
+        // If not exist Go to DB
     }
 
     public int size() {
-        return MEM_CACHE.size();
+        throw new UnsupportedOperationException();
     }
 
     public int dbHits() {

@@ -1,3 +1,5 @@
+
+
 package com.debuggeandoideas.api_collections.tree;
 
 import com.debuggeandoideas.api_collections.dtos.Payment;
@@ -11,18 +13,18 @@ public final class PaymentAmountIndex {
     private final SortedMap<Double, Payment> index = new TreeMap<>();
 
     public void add(Payment payment) {
-       this.index.put(payment.amount(), payment);
+        throw new UnsupportedOperationException();
     }
 
     public Map<Double, Payment> under(double amount) {
-        return this.index.headMap(amount);
+        throw new UnsupportedOperationException();
     }
 
     public Map<Double, Payment> atLeast(double amount) {
-        return this.index.tailMap(amount);
+        throw new UnsupportedOperationException();
     }
 
     public Map<Double, Payment> between(double low, double high) {
-        return this.index.subMap(low, high);
+        throw new UnsupportedOperationException();
     }
 }
