@@ -10,10 +10,12 @@ public final class PaymentLog {
     private final List<MutablePayment> payments = new ArrayList<>();
 
     public void record(MutablePayment payment) {
-        payments.add(payment);
+        throw new UnsupportedOperationException();
+
     }
 
     public int count() {
-        return payments.size();
+        throw new UnsupportedOperationException();
+
     }
 }

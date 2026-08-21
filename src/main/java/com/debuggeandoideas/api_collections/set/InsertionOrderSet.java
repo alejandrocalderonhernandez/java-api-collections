@@ -9,8 +9,6 @@ import java.util.Set;
 public final class InsertionOrderSet {
 
     public Set<Shipment> insertIntoHashSet(List<Shipment> shipments) {
-        Set<Shipment> set = new HashSet<>();
-        set.addAll(shipments);
-        return set;
+        throw new UnsupportedOperationException();
     }
 }

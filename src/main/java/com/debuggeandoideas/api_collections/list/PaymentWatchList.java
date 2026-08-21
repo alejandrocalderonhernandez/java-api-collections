@@ -12,26 +12,18 @@ public final class PaymentWatchList {
     private final List<Payment> watched = new ArrayList<>();
 
     public void watch(Payment payment) {
-        watched.add(payment);
+        throw new UnsupportedOperationException();
     }
 
     public void stopWatching(Payment payment) {
-        for (Payment current : watched) {
-            if (current.equals(payment)) {
-                watched.remove(current);
-            }
-        }
+        throw new UnsupportedOperationException();
     }
 
     public void addRelatedIfFound(Payment trigger, Payment related) {
-        for (Payment current : watched) {
-            if (current.equals(trigger)) {
-                watched.add(related);
-            }
-        }
+        throw new UnsupportedOperationException();
     }
 
     public List<Payment> currentlyWatched() {
-        return watched;
+        throw new UnsupportedOperationException();
     }
 }

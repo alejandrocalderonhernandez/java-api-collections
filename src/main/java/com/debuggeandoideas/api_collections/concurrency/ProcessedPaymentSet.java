@@ -7,14 +7,16 @@ import java.util.Set;
 
 public final class ProcessedPaymentSet {
 
-    private final Set<MutablePayment> processed = new HashSet<>(); // 🪲
+    private final Set<MutablePayment> processed = new HashSet<>();
 
     public void markProcessed(MutablePayment payment) {
-        processed.add(payment);
+        throw new UnsupportedOperationException();
+
 
     }
 
     public int count() {
-        return processed.size();
+        throw new UnsupportedOperationException();
+
     }
 }
