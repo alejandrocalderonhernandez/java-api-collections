@@ -1,4 +1,4 @@
-# API Collections — Proyecto del curso
+# API Collections
 
 Este proyecto es la **base** del curso de colecciones de Java. La idea es siempre la misma:
 generamos datos de prueba, los metemos en distintas estructuras (`ArrayList`, `LinkedList`,
@@ -7,6 +7,24 @@ elegir la estructura correcta según el problema, en lugar de usar `ArrayList` p
 
 > Este README está pensado para que cualquiera pueda arrancar, incluso si es nuevo en Java
 > o en Maven. Si algo no compila, salta directo a la sección **Solución de problemas** al final.
+
+---
+
+## Las dos ramas del proyecto — lee esto primero
+
+Este repositorio tiene **dos ramas**, y cada una cumple un propósito distinto:
+
+| Rama | Para qué sirve | ¿Se corre? |
+|---|---|---|
+| **`main`** | Es la rama de **trabajo**. Aquí viven los esqueletos de los ejercicios (cada método lanza `UnsupportedOperationException`, esperando a que tú lo implementes en clase). | ✅ Sí — es la única rama sobre la que trabajas y corres comandos |
+| **`solutions`** | Es la rama de **respuestas**. Contiene la implementación ya resuelta de cada ejercicio, por si te atoras o quieres comparar tu solución con la oficial. | ❌ No — solo se consulta para leer el código, no se usa para trabajar ni para correr tests |
+
+> ⚠️ **Regla del curso: todo el trabajo, todos los comandos de Maven y todos los ejercicios se
+> hacen sobre la rama `main`.** La rama `solutions` es solo de consulta — nunca la vas a
+> compilar, correr, ni hacer merge de ella hacia `main`. Mezclar ambas ramas por accidente es
+> el error más común (y más frustrante) del curso: si alguna vez ves que tus ejercicios ya
+> aparecen resueltos sin que tú los hayas escrito, probablemente pasó un merge accidental de
+> `solutions` — avísale a tu instructor.
 
 ---
 
@@ -22,18 +40,24 @@ lenguaje) junto con **Maven 3.9 o superior**. Este proyecto ya viene configurado
 </properties>
 ```
 
-No es obligatorio usar exactamente Java 25 para seguir el curso — los conceptos de
-colecciones aplican igual en Java 11, 17 o 21 — pero **todo el material, capturas de pantalla
-y ejemplos del curso están hechos con Java 25**. Si usas otra versión, es tu responsabilidad
-ajustar el `pom.xml` como se explica más abajo en
-[Cambiar la versión de Java del proyecto](#cambiar-la-versión-de-java-del-proyecto).
+Los conceptos de colecciones aplican igual sin importar la versión de Java que uses, pero
+**este proyecto en particular tiene un piso real**: los DTOs (`Payment`, `Shipment`) están
+escritos como **records** de Java, y los records se convirtieron en una característica
+estándar (sin banderas de "preview") a partir de **Java 16** — por eso la versión mínima
+práctica para este proyecto es **Java 17** (la primera LTS que ya los soporta de forma
+estable), no Java 11. Si de verdad necesitas usar Java 11, tendrías que reescribir los DTOs
+como clases normales — fuera del alcance de este curso.
+
+Todo el material, capturas de pantalla y ejemplos del curso están hechos con **Java 25**. Si
+usas otra versión (17, 21), es tu responsabilidad ajustar el `pom.xml` como se explica más
+abajo en [Cambiar la versión de Java del proyecto](#cambiar-la-versión-de-java-del-proyecto).
 
 ---
 
 ## Requisitos
 
 - **Java 25** (el JDK completo, no solo el JRE — necesitas el compilador `javac`, no solo el
-  ejecutable `java`).
+  ejecutable `java`). Mínimo real del proyecto: **Java 17**.
 - **Maven 3.9+**.
 - Conexión a internet la primera vez (Maven descarga las librerías la primera vez que compilas
   o corres los tests).
@@ -55,8 +79,16 @@ Default locale: es_ES, platform encoding: UTF-8
 OS name: "mac os x", version: "14.5", arch: "aarch64"
 ```
 
-En la línea `Java version:` debe decir **25**. Si dice otra versión, tu `JAVA_HOME` está
-apuntando a otro JDK — ajústalo antes de seguir (ver la sección de compatibilidad más abajo).
+En la línea `Java version:` debe decir **25** (o al menos **17**, el mínimo del proyecto). Si
+dice otra versión, tu `JAVA_HOME` está apuntando a otro JDK — ajústalo antes de seguir (ver la
+sección de compatibilidad más abajo).
+
+### Cómo actualizar Maven
+
+Si `mvn -version` muestra algo anterior a **3.9**, actualízalo antes de continuar — los pasos
+exactos dependen de cómo lo instalaste originalmente (Homebrew, SDKMAN, instalación manual,
+etc.), y ya se cubrieron en la clase introductoria del curso. Si necesitas repasarlos,
+consulta el material de esa clase antes de seguir aquí.
 
 ---
 
@@ -69,7 +101,7 @@ Aquí es fácil confundirse porque hay **dos cosas distintas** que dependen de J
    `maven.compiler.release`).
 
 No tienen que coincidir: puedes tener instalado un JDK 21 para *ejecutar* Maven y aun así
-decirle a Maven que *compile tu código* apuntando a Java 11, por ejemplo. Pero nunca puedes
+decirle a Maven que *compile tu código* apuntando a Java 17, por ejemplo. Pero nunca puedes
 compilar para una versión de Java **más nueva** que el JDK que estás usando para correr Maven.
 
 ### 1. Java mínimo para ejecutar cada versión de Maven
@@ -82,25 +114,26 @@ compilar para una versión de Java **más nueva** que el JDK que estás usando p
 | **3.9.x (recomendada para este curso)** | **Java 8**, pero compila perfectamente con JDKs modernos (17, 21, 25) | La que usamos aquí |
 | 4.0.x | Java 17 | Nueva generación de Maven (2025), aún poco usada en la industria |
 
-> Conclusión práctica: con **Maven 3.9+** no vas a tener problemas para trabajar con Java 11,
-> 17, 21 o 25. El "mínimo" de la tabla es el piso, no el techo — Maven 3.9 corre perfecto
-> sobre un JDK 25 como el que usamos en el curso.
+> Conclusión práctica: con **Maven 3.9+** no vas a tener problemas para trabajar con Java 17,
+> 21 o 25. El "mínimo" de la tabla es el piso de Maven en general — pero recuerda que **este
+> proyecto en particular** ya tiene su propio piso más alto (Java 17), por los records de los
+> DTOs mencionados arriba.
 
-### 2. Para qué versión de Java puedes compilar (ejemplo con Java 11)
+### 2. Para qué versión de Java puedes compilar (ejemplo con Java 17)
 
 Esto lo controla **el `pom.xml`**, no la versión de Maven. Digamos que quieres trabajar este
-proyecto con **Java 11** en lugar de Java 25:
+proyecto con **Java 17** en lugar de Java 25:
 
 | Paso | Qué hacer |
 |---|---|
-| 1 | Instala el **JDK 11** en tu máquina (además del que ya tengas, no hace falta desinstalar nada). |
-| 2 | Apunta `JAVA_HOME` al JDK 11 (o configura el SDK del proyecto en tu IDE a 11). |
-| 3 | En el `pom.xml`, cambia `<maven.compiler.release>25</maven.compiler.release>` por `<maven.compiler.release>11</maven.compiler.release>`. |
-| 4 | Corre `mvn clean install` para recompilar todo con la nueva configuración. |
+| 1 | Instala el **JDK 17** en tu máquina (además del que ya tengas, no hace falta desinstalar nada). |
+| 2 | Apunta `JAVA_HOME` al JDK 17 (o configura el SDK del proyecto en tu IDE a 17). |
+| 3 | En el `pom.xml`, cambia **una sola línea**: `<maven.compiler.release>25</maven.compiler.release>` por `<maven.compiler.release>17</maven.compiler.release>`. |
+| 4 | Corre `mvn compile` para recompilar con la nueva configuración (ver más abajo por qué usamos `compile` y no `install` durante el curso). |
 
 Si te saltas el paso 3 y solo cambias el JDK de tu máquina, Maven va a seguir intentando
 compilar para la versión 25 (porque así lo dice el `pom.xml`) y vas a ver un error como
-`invalid target release: 25` o `release version 11 not supported`. **El `pom.xml` manda, no
+`invalid target release: 25` o `release version 17 not supported`. **El `pom.xml` manda, no
 lo que tengas instalado.**
 
 ---
@@ -109,7 +142,7 @@ lo que tengas instalado.**
 
 Resumiendo el punto anterior en una checklist, cada vez que cambies de versión de Java:
 
-1. ✅ Instala el JDK correspondiente.
+1. ✅ Instala el JDK correspondiente (mínimo Java 17, por los records de los DTOs).
 2. ✅ Actualiza `JAVA_HOME` (o el SDK del proyecto en tu IDE).
 3. ✅ Edita **una sola línea** del `pom.xml`:
 
@@ -117,8 +150,7 @@ Resumiendo el punto anterior en una checklist, cada vez que cambies de versión 
    <maven.compiler.release>TU_VERSION_AQUI</maven.compiler.release>
    ```
 
-4. ✅ Corre `mvn clean install` para forzar una recompilación completa (ver más abajo por qué
-   `clean` es importante aquí).
+4. ✅ Corre `mvn compile` para forzar una recompilación con la nueva configuración.
 5. ✅ Recarga el proyecto Maven en tu IDE (las flechitas en círculo del panel de Maven), para
    que el IDE también se entere del cambio.
 
@@ -132,37 +164,14 @@ Resumiendo el punto anterior en una checklist, cada vez que cambies de versión 
 ## Comandos esenciales de Maven
 
 Todos estos comandos se corren **desde la carpeta raíz del proyecto**, es decir, donde está el
-archivo `pom.xml`.
+archivo `pom.xml`, y siempre sobre la rama **`main`**.
 
-### `mvn clean install` — compilar todo desde cero
-
-```bash
-mvn clean install
-```
-
-Qué hace, en orden:
-
-1. **`clean`**: borra la carpeta `target/` (todo lo compilado anteriormente). Así te
-   aseguras de que no queden `.class` viejos mezclados con los nuevos.
-2. **`install`**: compila el código de `src/main`, compila y corre los tests de `src/test`, y
-   si todo pasa, empaqueta el proyecto y lo instala en tu repositorio local (`~/.m2`), para que
-   otros proyectos tuyos puedan usarlo como dependencia.
-
-Úsalo cuando:
-- Acabas de clonar el proyecto por primera vez.
-- Cambiaste algo en el `pom.xml` (como la versión de Java del punto anterior).
-- Quieres estar 100% seguro de que todo compila y todos los tests pasan, sin restos de
-  compilaciones anteriores.
-
-Si solo quieres compilar sin instalar en tu repositorio local, `mvn clean package` hace lo
-mismo pero se detiene antes del paso de instalación.
-
-### Descargar las dependencias
+### Paso 1 — Descargar las dependencias
 
 La primera vez que abras el proyecto, Maven necesita descargar las librerías que usamos
 (JUnit 5, Datafaker, el plugin del árbol bonito de tests, etc.). Esto pasa **automáticamente**
-la primera vez que corres cualquier comando (`mvn test`, `mvn clean install`…), pero si quieres
-forzarlo manualmente:
+la primera vez que corres cualquier comando de Maven, pero si quieres forzarlo manualmente
+antes de escribir código:
 
 ```bash
 mvn -U dependency:resolve
@@ -188,36 +197,68 @@ Las dependencias se guardan en tu **repositorio local de Maven**, normalmente en
 Ahí quedan cacheadas: la próxima vez que compiles, Maven no vuelve a descargarlas (a menos que
 cambie la versión que pides en el `pom.xml`).
 
-### Correr los tests
+### `mvn compile` — el comando que SÍ vas a usar todo el curso
 
-#### Opción 1 — Terminal (recomendada, muestra los tiempos en árbol)
+```bash
+mvn compile
+```
+
+Este es el comando que debes usar mientras resuelves los ejercicios. Solo compila el código de
+`src/main` — **no corre los tests**, así que no te vas a topar con el `BUILD FAILURE` que sí
+verías con otros comandos (ver el aviso más abajo).
+
+Úsalo para confirmar que:
+- Tu código compila, sin errores de sintaxis.
+- No rompiste ningún import ni ninguna firma de método al implementar un ejercicio.
+
+> ⚠️ **No uses `mvn install` ni `mvn clean install` mientras trabajas los ejercicios.** Ambos
+> comandos, además de compilar, **corren todos los tests** — y mientras te falten ejercicios
+> por implementar, esos tests van a **fallar**, mostrándote un `BUILD FAILURE` completo con
+> decenas de errores. Eso **no significa que algo esté roto** — es exactamente lo que se
+> espera al principio del curso (ver la sección de tests abajo). Usa `mvn compile` para tu
+> día a día, y guarda `mvn test` (siguiente sección) para cuando sí quieras ver el estado de
+> los tests a propósito.
+
+### Correr los tests — y por qué ahorita van a fallar (esto es normal)
 
 ```bash
 mvn test
 ```
 
-Esto corre **todos** los tests sin reinstalar nada (más rápido que `clean install` para el
-día a día). Verás una salida en forma de árbol, con una palomita ✔ y el **tiempo de cada
-test** al lado:
+Esto corre **todos** los tests del proyecto. Ahora mismo, **al inicio del curso, es totalmente
+esperado que casi todos fallen** — cada método de ejercicio está sin implementar (lanza
+`UnsupportedOperationException`), así que ningún test tiene todavía una lógica real que
+verificar.
 
 ```
-ArrayList vs LinkedList: insert in the middle
-└─ insert 2000 elements in the middle of a 2000-element list ✔ 42 ms
+[ERROR] Tests run: 63, Failures: 1, Errors: 62, Skipped: 0
+```
+
+Esto **no es un error tuyo ni un problema del proyecto** — es, literalmente, el mapa de qué
+ejercicios te faltan. Conforme vayas implementando cada método en clase, esos tests van a
+empezar a pasar uno por uno, y el número de `Errors` va a ir bajando.
+
+Verás una salida en forma de árbol, con una palomita ✔ (o una ✘ si falla) y el **tiempo de
+cada test** al lado:
+
+```
+├─ com.debuggeandoideas.api_collections.list.ListBasicOperationsTest - 0.006 s
+│  ├─ ✘ getsPaymentAtGivenIndex - 0.001 s
 ```
 
 Para correr **una sola clase** de test:
 
 ```bash
-mvn test -Dtest=MiddleInsertionTest
+mvn test -Dtest=ListBasicOperationsTest
 ```
 
 Para correr un **solo método** dentro de una clase:
 
 ```bash
-mvn test -Dtest=MiddleInsertionTest#insertInMiddle
+mvn test -Dtest=ListBasicOperationsTest#getsPaymentAtGivenIndex
 ```
 
-#### Opción 2 — IntelliJ (rápida para el día a día)
+#### Opción alterna — IntelliJ
 
 Abre la clase de test y haz clic en la **flecha verde ▶** que aparece junto a la clase o al
 método. Los resultados salen en el panel de abajo.
@@ -398,6 +439,16 @@ queremos que entiendas.
 
 ## Solución de problemas
 
+### Ya implementé el ejercicio, pero `mvn test` sigue mostrando muchos `Errors`
+Revisa si de verdad implementaste **esa** clase específica — con 60+ tests en el proyecto, es
+normal que sigan fallando los que aún no has tocado. Corre solo la clase que te interesa:
+`mvn test -Dtest=NombreDelTest`, y confirma que esa en particular ya pasa en verde.
+
+### Mis ejercicios ya aparecen resueltos, sin que yo los haya escrito
+Es señal de un merge accidental de la rama `solutions` hacia `main`. Avísale a tu instructor
+— normalmente se resuelve con un `git reset --hard origin/main` para volver al estado
+correcto (esto borra cualquier cambio local no subido, así que ten cuidado antes de correrlo).
+
 ### `Package not found: net.datafaker`
 El archivo que usa Datafaker está en `src/main` en lugar de `src/test`. Datafaker tiene
 `<scope>test</scope>`, así que solo existe en `src/test`. **Mueve el archivo a
@@ -418,7 +469,7 @@ mvn -U dependency:resolve
 Si dice `BUILD SUCCESS`, ya bajaron; recarga el proyecto Maven en el IDE (icono de las
 flechas en círculo). Si falla, revisa tu conexión a internet o si estás detrás de un proxy.
 
-### El IDE marca rojo pero `mvn test` funciona
+### El IDE marca rojo pero `mvn compile` funciona
 Recarga el proyecto Maven en el IDE: panel de Maven → **Reload All Maven Projects** (las
 flechitas en círculo). El IDE a veces se desincroniza; Maven es la fuente de verdad.
 
@@ -426,15 +477,16 @@ flechitas en círculo). El IDE a veces se desincroniza; Maven es la fuente de ve
 Tu Maven está compilando con un Java más viejo que el que pide el `pom.xml`. Verifica con
 `mvn -version` que la `Java version` sea al menos la que indica
 `<maven.compiler.release>` en el `pom.xml`, y ajusta `JAVA_HOME` si no lo es. Si de verdad
-quieres usar una versión distinta, sigue los pasos de
-[Cambiar la versión de Java del proyecto](#cambiar-la-versión-de-java-del-proyecto).
+quieres usar una versión distinta (mínimo Java 17, por los records de los DTOs), sigue los
+pasos de [Cambiar la versión de Java del proyecto](#cambiar-la-versión-de-java-del-proyecto).
 
-### Cambié de versión de Java y los tests fallan raro / no compilan
+### Cambié de versión de Java y no compila / da errores raros
 Casi siempre es porque quedaron `.class` viejos compilados con la versión anterior. Corre:
 ```bash
-mvn clean install
+mvn clean compile
 ```
-El `clean` borra `target/` por completo antes de recompilar, así no quedan restos mezclados.
+El `clean` borra `target/` por completo antes de recompilar, así no quedan restos mezclados
+(y a diferencia de `clean install`, esto no corre los tests).
 
 ### No veo el árbol bonito de tiempos
 El formato en árbol solo sale con **`mvn test` en la terminal**, no con el runner del IDE.
@@ -447,11 +499,15 @@ configurado el *tree reporter*.
 
 ```bash
 mvn -version                       # verifica la versión de Java que usa Maven
-mvn clean install                  # borra target/, compila, corre tests e instala en ~/.m2
-mvn clean package                  # igual que install pero sin instalar en el repo local
-mvn -U dependency:resolve          # fuerza la descarga de librerías declaradas en el pom
-mvn dependency:go-offline          # descarga todo lo necesario para trabajar sin internet
-mvn test                           # corre todos los tests
+mvn -U dependency:resolve          # Paso 1 — fuerza la descarga de librerías del pom
+mvn compile                        # el comando de uso diario — compila sin correr tests
+mvn test                           # corre todos los tests (al inicio, fallan — es normal)
 mvn test -Dtest=NombreDelTest      # corre una sola clase de test
 mvn test -Dtest=Clase#metodo       # corre un solo método de test
+mvn dependency:go-offline          # descarga todo lo necesario para trabajar sin internet
 ```
+
+> ⚠️ `mvn install` y `mvn clean install` no se usan durante el curso — ambos corren los tests,
+> y mientras te falten ejercicios por implementar, vas a ver un `BUILD FAILURE` completo. Usa
+> `mvn compile` para tu día a día, y `mvn test` cuando quieras ver a propósito qué tests
+> siguen pendientes.
